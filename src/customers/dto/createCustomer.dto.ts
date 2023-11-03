@@ -15,8 +15,8 @@ export class CreateCustomerDto{
     createAt: Date;
 
     //vlozenyj
-    @ValidateNested()
-    @Type(() => AddressDto)
-    @IsNotEmptyObject()
-    address: AddressDto
+    // @ValidateNested()
+    // @Type(() => AddressDto)
+    // @IsNotEmptyObject()
+    // address: AddressDto
 }
