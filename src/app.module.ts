@@ -2,20 +2,25 @@ import { Module } from '@nestjs/common';
 import { CustomersModule } from './customers/customers.module';
 import { UsersModule } from './users/users.module';
 import {TypeOrmModule} from "@nestjs/typeorm";
-
+import { ConfigModule } from '@nestjs/config';
+import entities from "./typeorm";
 
 @Module({
   imports: [
+      ConfigModule.forRoot({
+          isGlobal: true,
+      }),
+      //npm i --save @nestjs/config - instead of dotenv
       CustomersModule,
       UsersModule,
       TypeOrmModule.forRoot({
         type: "mysql",
         host: 'localhost',
         port: 3306,
-        username: 'user',
-        password: 'user123',
-        database: 'nest_db',
-        entities: [],
+        username: process.env.DB_USER_NAME,
+        password: process.env.DB_PASSWORD,
+        database: process.env.DB_NAME,
+        entities: [...entities],
         synchronize: true
       })
   ],
@@ -24,7 +29,9 @@ import {TypeOrmModule} from "@nestjs/typeorm";
 })
 export class AppModule {}
 
-//mysq -u root -p
+//install npm i @nestjs/typeorm typeorm mysql2
+
+//mysql -u root -p
 //create database db_name;
 //create user 'username'@'localhost' identified by 'password'
 //GRANT SELECT, INSERT, UPDATE, DELETE, CREATE, INDEX, DROP, ALTER, CREATE TEMPORARY TABLES, LOCK TABLES ON database_name.* TO 'user'@'localhost';
