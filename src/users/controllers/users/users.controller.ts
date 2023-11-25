@@ -9,7 +9,7 @@ import {
     Param, ParseIntPipe, Post, UseFilters,
     UseInterceptors, UsePipes, ValidationPipe
 } from '@nestjs/common';
-import {UsersService} from "../../service/users/users.service";
+import {UsersService} from "../../services/users/users.service";
 import {SerializedUser} from "../../types";
 import {UserNotFoundException} from "../../exceptions/UserNotFound.exception";
 import {HttpExceptionFilter} from "../../filters/HttpException.filter";
