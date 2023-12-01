@@ -6,13 +6,11 @@ import {AuthService} from "../services/auth/auth.service";
 @Injectable()
 export class LocalStrategy extends PassportStrategy(Strategy){
    constructor(@Inject("AUTH_SERVICE") private readonly authService: AuthService ){
-       super({
-           usernameField: 'email'
-       })
+       super()
    }
 
-    async validate(email: string, password: string){
-     const userData = await this.authService.validateUser(email, password);
+    async validate(username: string, password: string){
+     const userData = await this.authService.validateUser(username, password);
      if(!userData) throw new UnauthorizedException('User not found or password is incorrect')
 
      return userData
