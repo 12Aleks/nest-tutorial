@@ -17,6 +17,10 @@ async function bootstrap() {
             }
         })
     );
+
+    //passport has been added here to connect with the session
+    app.use(passport.initialize())
+    app.use(passport.session());
     await app.listen(3000);
 }
 
