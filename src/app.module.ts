@@ -6,6 +6,7 @@ import { ConfigModule } from '@nestjs/config';
 import { AuthModule } from './auth/auth.module';
 import entities from "./typeorm";
 import {PassportModule} from "@nestjs/passport";
+import { PaymentsModule } from './payments/payments.module';
 
 @Module({
   imports: [
@@ -29,7 +30,8 @@ import {PassportModule} from "@nestjs/passport";
       PassportModule.register({
           //passport has been connected with the session
           session: true
-      })
+      }),
+      PaymentsModule
   ],
   controllers: [],
   providers: []

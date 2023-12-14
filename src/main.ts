@@ -14,19 +14,19 @@ async function bootstrap() {
     app.use(
         session({
             name: 'Session',
-            secret:  process.env.SESSION_KEY,
             resave: false,
             saveUninitialized: false,
             cookie: {
               maxAge: Number(process.env.COOKIE_MAX_AGE)
                 // maxAge: 60000
             },
-            store: new TypeormStore().connect(sessionRepository)
+            store: new TypeormStore().connect(sessionRepository),
+            secret:  process.env.SESSION_KEY,
         })
     );
 
     //passport has been added here to connect with the session
-    app.use(passport.initialize())
+    app.use(passport.initialize());
     app.use(passport.session());
     await app.listen(3000);
 }
