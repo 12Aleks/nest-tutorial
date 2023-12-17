@@ -6,6 +6,7 @@ import {InjectRepository} from "@nestjs/typeorm";
 import {User as UserEntity} from "../../../typeorm";
 import {Repository} from "typeorm";
 import {encodePassword} from "../../../utils/bcrypt";
+import passport from "passport";
 
 @Injectable()
 export class UsersService {
@@ -28,9 +29,11 @@ export class UsersService {
 
     async createUser(dto: CreateUserDto){
       const check = await this.userRepository.findOneBy({email: dto.email});
+
       if(check) throw new HttpException('This email address is already in the database', HttpStatus.BAD_REQUEST);
 
       const password: string = encodePassword(dto.password)
+      console.log(password)
 
       const newUser =  this.userRepository.create({...dto, password});
       return this.userRepository.save(newUser)
